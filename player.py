@@ -7,6 +7,7 @@ class Player:
     def __init__(self, game):
         self.game = game
         self.x, self.y = PLAYER_POS
+        self.floor_y, self.floor_x = PLAYER_POS_FLOOR
         self.angle = PLAYER_ANGLE
     
     def movement(self):
@@ -44,11 +45,33 @@ class Player:
         return (x, y) not in self.game.map.world_map
     
     def check_wall_collision(self, dx, dy):
+        self.move_to_neighbor_room(int(self.x + dx), int(self.y + dy))
         if self.check_walls(int(self.x + dx), int(self.y)):
             self.x += dx
         if self.check_walls(int(self.x), int(self.y + dy)):
             self.y += dy
+    #toadd: hitbox for room traversion (add 'd' in map layout for door)
 
+    def move_to_neighbor_room(self, x, y):
+        if self.game.map.mini_map[y][x] == 'd':
+            print('I tried', x, y, self.floor_x, self.floor_y)
+            if y == 0:
+                if self.game.map.floor_map[(self.floor_x - 1) % MAP_HEIGHT][self.floor_y]:
+                    self.floor_x = (self.floor_x - 1) % MAP_HEIGHT
+                    self.y = 7.8
+            if y == 8:
+                if self.game.map.floor_map[(self.floor_x + 1) % MAP_HEIGHT][self.floor_y]:
+                    self.floor_x = (self.floor_x + 1) % MAP_HEIGHT
+                    self.y = 1.2
+            if x == 0:
+                if self.game.map.floor_map[self.floor_x][(self.floor_y - 1) % MAP_WIDTH]:
+                    self.floor_y = (self.floor_y - 1) % MAP_WIDTH
+                    self.x = 14.8
+            if x == 15:
+                if self.game.map.floor_map[self.floor_x][(self.floor_y + 1) % MAP_WIDTH]:
+                    self.floor_y = (self.floor_y + 1) % MAP_WIDTH
+                    self.x = 1.2
+            self.game.map.load_new_room()
 
     def draw(self):
         # pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
