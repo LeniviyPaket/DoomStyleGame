@@ -24,7 +24,7 @@ class Game:
         self.raycasting.update()
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
-        pg.display.set_caption(f"{self.clock.get_fps() :.1f}, room {self.player.floor_x, self.player.floor_y}")
+        pg.display.set_caption(f"{self.clock.get_fps() :.1f}, room {self.player.floor_y, MAP_HEIGHT - self.player.floor_x}")
     
     def draw(self):
         self.screen.fill("black")

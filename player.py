@@ -54,7 +54,7 @@ class Player:
 
     def move_to_neighbor_room(self, x, y):
         if self.game.map.mini_map[y][x] == 'd':
-            print('I tried', x, y, self.floor_x, self.floor_y)
+            # print('I tried', x, y, self.floor_x, self.floor_y)
             if y == 0:
                 if self.game.map.floor_map[(self.floor_x - 1) % MAP_HEIGHT][self.floor_y]:
                     self.floor_x = (self.floor_x - 1) % MAP_HEIGHT
