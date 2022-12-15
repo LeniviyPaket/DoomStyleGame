@@ -25,3 +25,4 @@ DELTA_ANGLE = FOV / NUM_RAYS
 MAX_DEPTH = 20 #max draw distance
 
 SCREEN_DIST = HALF_WIDTH / math.tan(HALF_FOV)
+SCALE = WIDTH // NUM_RAYS
