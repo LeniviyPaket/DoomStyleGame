@@ -100,4 +100,3 @@ class RayCasting:
 
     def update(self):
         self.ray_cast()
-        self.get_obj_to_render()
