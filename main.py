@@ -5,6 +5,7 @@ from map import *
 from player import *
 from raycasting import *
 from object_renderer import *
+from minimap import *
 
 
 class Game:
@@ -20,6 +21,7 @@ class Game:
         self.map = Map(self)
         self.object_renderer = ObjectRenderer(self)
         self.raycasting = RayCasting(self)
+        self.minimap = MiniMap(self)
 
     def update(self):
         self.player.update()
@@ -29,8 +31,9 @@ class Game:
         pg.display.set_caption(f"{self.clock.get_fps() :.1f}, room {self.player.floor_y, MAP_HEIGHT - 1 - self.player.floor_x}")
     
     def draw(self):
-        self.screen.fill("black")
+        self.screen.fill("darkgray")
         self.object_renderer.draw()
+        self.minimap.draw()
         # self.map.draw()
         # self.player.draw()
     
