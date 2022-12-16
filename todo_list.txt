@@ -1,0 +1,11 @@
+Finish the level randomization
+-------------
+Create more room layouts
+-------------
+Add sky & floor
+-------------
+Add weapons
+-------------
+Add enemy NPCs
+-------------
+Add entrace & exit rooms
