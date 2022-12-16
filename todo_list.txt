@@ -8,4 +8,4 @@ Add weapons
 -------------
 Add enemy NPCs
 -------------
-Add entrace & exit rooms
+Add entrance & exit rooms
