@@ -6,6 +6,8 @@ from player import *
 from raycasting import *
 from object_renderer import *
 from minimap import *
+from tkinter import *
+from tkinter import messagebox
 
 
 class Game:
@@ -22,13 +24,14 @@ class Game:
         self.object_renderer = ObjectRenderer(self)
         self.raycasting = RayCasting(self)
         self.minimap = MiniMap(self)
+        messagebox.showinfo('Controls', 'WASD --- move character\nLeft/right arrow --- rotate camera')
 
     def update(self):
         self.player.update()
         self.raycasting.update()
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
-        pg.display.set_caption(f"{self.clock.get_fps() :.1f}, room {self.player.floor_y, MAP_HEIGHT - 1 - self.player.floor_x}")
+        pg.display.set_caption(f"FPS: {self.clock.get_fps() :.1f}")
     
     def draw(self):
         self.screen.fill("darkgray")
