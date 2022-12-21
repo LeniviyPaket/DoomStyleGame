@@ -17,10 +17,10 @@ class MiniMap:
         pg.draw.rect(self.game.screen, "white", (self.pos_x, self.pos_y, *self.res), MINIMAP_BORDER)
         for x in range(MAP_HEIGHT):
             for y in range(MAP_WIDTH):
-                if self.game.map.floor_map[x][y]:
-                    pg.draw.rect(self.game.screen, "red" if (x == self.player.floor_x and y == self.player.floor_y) else "white",
+                if (y, x) in self.game.map.visited: #self.game.map.floor_map[x][y]:
+                    pg.draw.rect(self.game.screen, "red" if (x == self.player.floor_x and y == self.player.floor_y) else "lightgreen",
                                 (self.pos_x + MINIMAP_BORDER + y * MINIMAP_CELL_WIDTH, self.pos_y + MINIMAP_BORDER + x * MINIMAP_CELL_HEIGHT, MINIMAP_CELL_WIDTH, MINIMAP_CELL_HEIGHT), 4)
                                 # ((y - self.player.floor_x) % MAP_HEIGHT)
-        pg.draw.circle(self.game.screen, "green", (self.pos_x + MINIMAP_WIDTH / 2, self.pos_y + MINIMAP_WIDTH / 2), self.rad, 3)
-        pg.draw.line(self.game.screen, "green", (self.pos_x + MINIMAP_WIDTH / 2, self.pos_y + MINIMAP_WIDTH / 2),
+        pg.draw.circle(self.game.screen, "cyan", (self.pos_x + MINIMAP_WIDTH / 2, self.pos_y + MINIMAP_WIDTH / 2), self.rad, 3)
+        pg.draw.line(self.game.screen, "cyan", (self.pos_x + MINIMAP_WIDTH / 2, self.pos_y + MINIMAP_WIDTH / 2),
                     (self.pos_x + MINIMAP_WIDTH / 2 + self.rad * math.cos(self.player.angle), self.pos_y + MINIMAP_WIDTH / 2 + self.rad * math.sin(self.player.angle)), 3)
