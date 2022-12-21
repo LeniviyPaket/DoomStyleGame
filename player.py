@@ -59,22 +59,26 @@ class Player:
                 if self.game.map.floor_map[(self.floor_x - 1) % MAP_HEIGHT][self.floor_y]:
                     self.floor_x = (self.floor_x - 1) % MAP_HEIGHT
                     self.game.map.load_new_room()
+                    self.x = len(self.game.map.room_dict[(self.floor_y, self.floor_x)][0]) / 2
                     self.y = len(self.game.map.room_dict[(self.floor_y, self.floor_x)]) - 1.2 #7.8
             if y == len(self.game.map.room_dict[(self.floor_y, self.floor_x)]) - 1:
                 if self.game.map.floor_map[(self.floor_x + 1) % MAP_HEIGHT][self.floor_y]:
                     self.floor_x = (self.floor_x + 1) % MAP_HEIGHT
                     self.game.map.load_new_room()
+                    self.x = len(self.game.map.room_dict[(self.floor_y, self.floor_x)][0]) / 2
                     self.y = 1.2
             if x == 0:
                 if self.game.map.floor_map[self.floor_x][(self.floor_y - 1) % MAP_WIDTH]:
                     self.floor_y = (self.floor_y - 1) % MAP_WIDTH
                     self.game.map.load_new_room()
                     self.x = len(self.game.map.room_dict[(self.floor_y, self.floor_x)][0]) - 1.2 #14.8
+                    self.y = len(self.game.map.room_dict[(self.floor_y, self.floor_x)]) / 2
             if x == len(self.game.map.room_dict[(self.floor_y, self.floor_x)][0]) - 1:
                 if self.game.map.floor_map[self.floor_x][(self.floor_y + 1) % MAP_WIDTH]:
                     self.floor_y = (self.floor_y + 1) % MAP_WIDTH
                     self.game.map.load_new_room()
                     self.x = 1.2
+                    self.y = len(self.game.map.room_dict[(self.floor_y, self.floor_x)]) / 2
             
 
     def draw(self):

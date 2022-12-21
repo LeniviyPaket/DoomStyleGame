@@ -1,6 +1,6 @@
 import pygame as pg
 from settings import *
-from random import randint
+import random
 
 _ = False
 d = 'd'
@@ -44,7 +44,29 @@ class Map:
                     res[(y, x)].add((y, (x + 1) % grid_height))
                 if self.floor_map[x][(y + 1) % grid_width]:
                     res[(y, x)].add(((y + 1) % grid_width, x))
+
         self.neighbors = res
+
+    def shut_unused_doors(self):
+        grid_height = len(self.floor_map)
+        grid_width = len(self.floor_map[1])
+
+        for x in range(grid_height):
+            for y in range(grid_width):
+                if self.floor_map[x][y]:
+                    if (y , (x - 1) % grid_height) not in self.neighbors[(y, x)]:
+                        for i in range(len(self.room_dict[(y, x)][0])):
+                            self.room_dict[(y, x)][0][i] = 1
+                    if ((y - 1) % grid_width, x) not in self.neighbors[(y, x)]:
+                        for i in range(len(self.room_dict[(y, x)])):
+                            self.room_dict[(y, x)][i][0] = 1
+                    if (y , (x + 1) % grid_height) not in self.neighbors[(y, x)]:
+                        for i in range(len(self.room_dict[(y, x)][0])):
+                            self.room_dict[(y, x)][-1][i] = 1
+                    if ((y + 1) % grid_width, x) not in self.neighbors[(y, x)]:
+                        for i in range(len(self.room_dict[(y, x)])):
+                            self.room_dict[(y, x)][i][-1] = 1
+
 
     def check_connectivity(self, node):
         queue = []
@@ -64,23 +86,30 @@ class Map:
         self.mini_map = self.room_dict[(y, x)]
 
     def randomize_floor_layout(self):
-        self.floor_map = [
-            [0, 0, 0, 1, 1, 0, 1],
-            [1, 1, 1, 1, 0, 1, 1],
-            [0, 1, 0, 1, 1, 1, 1],
-            [0, 0, 0, 0, 1, 0, 1],
-            [0, 1, 1, 1, 1, 0, 0],
-            [0, 1, 0, 1, 1, 0, 0],
-            [0, 1, 1, 0, 1, 0, 0],
-            [0, 1, 0, 0, 1, 0, 0],
-            [0, 1, 1, 1, 1, 1, 1],
-        ]
-        self.room_number = 13
+        # self.floor_map = [
+        #     [0, 0, 0, 1, 1, 0, 1],
+        #     [1, 1, 1, 1, 0, 1, 1],
+        #     [0, 1, 0, 1, 1, 1, 1],
+        #     [0, 0, 0, 0, 1, 0, 1],
+        #     [0, 1, 1, 1, 1, 0, 0],
+        #     [0, 1, 0, 1, 1, 0, 0],
+        #     [0, 1, 1, 0, 1, 0, 0],
+        #     [0, 1, 0, 0, 1, 0, 0],
+        #     [0, 1, 1, 1, 1, 1, 1],
+        # ]
+        # self.room_number = 13
+
+        self.floor_map = [[0 for __ in range(MAP_WIDTH)] for _ in range(MAP_HEIGHT)]
+        self.floor_map[self.game.player.floor_x][self.game.player.floor_y] = 1
+        for _ in range(self.room_number - 1):
+            x, y = random.randint(0, MAP_HEIGHT - 1), random.randint(0, MAP_WIDTH - 1)
+            self.floor_map[x][y] = 1
+
         pass #+1 for each room generated
 
     def generate_floor(self):
         self.visited = set()
-        self.room_number = randint(int(2.5*(MAP_HEIGHT + MAP_WIDTH)), MAP_HEIGHT * MAP_WIDTH)
+        self.room_number = random.randint(int(2*(MAP_HEIGHT + MAP_WIDTH)), MAP_HEIGHT * MAP_WIDTH)
         
         self.room_dict = {}
 
@@ -93,7 +122,9 @@ class Map:
         for x in range(MAP_HEIGHT):
             for y in range(MAP_WIDTH):
                 if self.floor_map[x][y]:
-                    self.room_dict[(y, x)] = mini_map # self.room_type[self.floor_map[x][y]]
+                    self.room_dict[(y, x)] = mini_map.copy() # self.room_type[self.floor_map[x][y]].copy()
+        
+        # self.shut_unused_doors()
     
     def get_map(self):
         for j, row in enumerate(self.mini_map):
