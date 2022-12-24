@@ -26,7 +26,7 @@ Plans:
 + Addition of more room presets
 + Making the game more rogue-like (in terms of progression between locations)
 
-###### Alert
+### Alert
 To use this properly it's recommended to remove "DoomStyleGame" from paths to files in [object_renderer.py](object_renderer.py) unless you want to open this project as as subfolder in VSCode workspace
 
 ## Thanks for reading this
