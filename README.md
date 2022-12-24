@@ -1,6 +1,8 @@
 # My Doom-like game
+
 This project was inspired by my dream of finally creating a 3D in python
-Based on the project from [this tutorial]([url](https://youtu.be/ECqUrT7IdqQ))
+
+Based on the project from [this tutorial](https://youtu.be/ECqUrT7IdqQ)
 
 ## Any changes?
 Actually, there were some changes to the project mentioned before.
