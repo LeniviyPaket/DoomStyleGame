@@ -6,7 +6,6 @@ from player import *
 from raycasting import *
 from object_renderer import *
 from minimap import *
-from tkinter import *
 from tkinter import messagebox
 
 
